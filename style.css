@@ -1,0 +1,245 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --rotateVal: 0deg;
+}
+
+body{
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    background: #111;
+    font-family: 'roboto', sans-serif;
+}
+
+.anim-container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 9;
+    pointer-events: none;
+}
+
+.shutter{
+    position: relative;
+    width: 100%;
+    height: 50%;
+    background: #000;
+}
+
+.shutter.top{
+    top: 0;
+    z-index: 2;
+    animation: slide-top 1s 3.5s forwards 1;
+}
+
+.shutter.top::before{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background: #fff;
+    bottom: 0;
+    left: -100%;
+    animation: slide-left 1s 2.5s forwards 1;
+}
+
+.shutter.bottom{
+    bottom: 0;
+    animation: slide-bottom 1s 3.5s forwards 1;
+}
+
+.circle{
+    position: absolute;
+    left: 50%;
+    bottom: -100px;
+    transform: translateX(-50%) rotate(-90deg);
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+    animation: rotate 1s 1.25s forwards 1;
+}
+
+.circle:nth-child(2){
+    width: 150px;
+    height: 150px;
+    bottom: -75px;
+    animation: rotate 1s 1.25s forwards reverse 1, bg .5s 2.25s forwards 1;
+}
+
+.circle::before{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 95%;
+    height: 95%;
+    border-radius: 50%;
+    background-color: #000;
+    z-index: 2;
+}
+
+.circle:nth-child(2)::before{
+    animation: bg .5s 2.25s forwards 1;
+}
+
+.box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: 0 0 ;
+    width: 200px;
+    height: 200px;
+    background: #fff;
+    transform: rotate(0deg) skew(90deg);
+    animation: drawCircle .5s forwards 1;
+}
+
+.circle:nth-child(2) .box{
+    animation: drawCircle .5s .75s forwards 1;
+}
+
+@keyframes drawCircle{
+    0%{
+        transform: rotate(var(--rotateVal)) skewX(90deg);
+    }
+    100%{
+        transform: rotate(var(--rotateVal)) skewX(10deg);
+    }
+}
+
+@keyframes rotate{
+    100%{
+        transform: translateX(-50%) rotate(-270deg);
+    }
+}
+
+@keyframes bg{
+    100%{
+        background: #fff;
+    }
+}
+
+@keyframes slide-left{
+    100%{
+        left: 100%;
+    }
+}
+
+@keyframes slide-top{
+    100%{
+        top: -100%;
+    }
+}
+
+@keyframes slide-bottom{
+    100%{
+        bottom: -100%;
+    }
+}
+
+.header{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.left{
+    width: 60%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+.content{
+    width: 80%;
+    min-width: 500px;
+}
+
+.heading{
+    font-size: 80px;
+    text-transform: capitalize;
+}
+
+.heading span{
+    font-size: 120px;
+    display: block;
+}
+
+.content p{
+    margin: 50px 0;
+    width: 90%;
+}
+
+.btn{
+    padding: 10px 40px;
+    border: none;
+    border-radius: 50px;
+    background: #000;
+    color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+    text-transform: capitalize;
+}
+
+.right{
+    width: 40%;
+    height: 100%;
+    background: url(bg.png);
+    background-size: cover;
+    position: relative;
+}
+
+.right p{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    color: #fff;
+    font-size: 60px;
+    padding: 10px;
+    width: 100px;
+    border: 5px solid #fff;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 996px){
+    .header{
+        flex-direction: column-reverse;
+    }
+    .left, .right{
+        width: 100%;
+    }
+    .right{
+        height: 300px;
+        background-position: bottom center;
+    }
+    .heading, .heading span{
+        font-size: 7vw;
+    }
+    .content{
+        min-width: 70%;
+    }
+    .content p{
+        width: 100%;
+    }
+}
+
+@media (max-width: 500px){
+    .haeding, .heading span{
+        font-size: 60px;
+    }
+}
